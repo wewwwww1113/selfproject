@@ -13,7 +13,6 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity {
-
     myDBHelper myHelper;
     EditText edtName, edtNumber, edtNameResult, edtNumberResult;
     Button btnInit, btnInsert, btnUpdate, btnDelete, btnSelect;
@@ -31,7 +30,6 @@ public class MainActivity extends AppCompatActivity {
         edtNumber = (EditText) findViewById(R.id.edtNumber);
         edtNameResult = (EditText) findViewById(R.id.edtNameResult);
         edtNumberResult = (EditText) findViewById(R.id.edtNumberResult);
-
         btnInit = (Button) findViewById(R.id.btnInit);
         btnInsert = (Button) findViewById(R.id.btnInsert);
         btnUpdate = (Button) findViewById(R.id.btnUpdate);
@@ -42,11 +40,10 @@ public class MainActivity extends AppCompatActivity {
         btnInit.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 sqlDB = myHelper.getWritableDatabase();
-                myHelper.onUpgrade(sqlDB, 1, 2); // 인수는 아무거나 입력하면 됨.
+                myHelper.onUpgrade(sqlDB, 1, 2);
                 sqlDB.close();
             }
         });
-
         btnInsert.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 sqlDB = myHelper.getWritableDatabase();
@@ -91,7 +88,6 @@ public class MainActivity extends AppCompatActivity {
                 btnSelect.callOnClick();
             }
         });
-
         btnSelect.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 sqlDB = myHelper.getReadableDatabase();
@@ -113,19 +109,15 @@ public class MainActivity extends AppCompatActivity {
                 sqlDB.close();
             }
         });
-
     }
-
     public class myDBHelper extends SQLiteOpenHelper {
         public myDBHelper(Context context) {
             super(context, "groupDB", null, 1);
         }
-
         @Override
         public void onCreate(SQLiteDatabase db) {
             db.execSQL("CREATE TABLE  groupTBL ( gName CHAR(20) PRIMARY KEY, gNumber INTEGER);");
         }
-
         @Override
         public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
             db.execSQL("DROP TABLE IF EXISTS groupTBL");
